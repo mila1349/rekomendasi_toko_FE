@@ -61,10 +61,12 @@ class HomeView extends React.Component {
     }
 
     fetchData=async(loc)=>{
-        await axios.get(`http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_POSITION}&
-        query=${loc.coords.latitude},${loc.coords.longitude}`)
+        // await axios.get(`http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_POSITION}&
+        // query=${loc.coords.latitude},${loc.coords.longitude}`)
+
+        await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&zoom=18&addressdetails=1`)
         .then((response) => {
-            this.setState({loc:response.data.data[0].county})
+            this.setState({loc:response.data.address.city})
         })
         .catch((err)=>{
             this.notifyError("Gagal menemukan rekomendasi")
