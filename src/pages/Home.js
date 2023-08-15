@@ -63,14 +63,11 @@ class HomeView extends React.Component {
     fetchData=async(loc)=>{
         await axios.get(`http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_POSITION}&
         query=${loc.coords.latitude},${loc.coords.longitude}`)
-        
         .then((response) => {
             this.setState({loc:response.data.data[0].county})
         })
         .catch((err)=>{
             this.notifyError("Gagal menemukan rekomendasi")
-            window.location.href = '/';
-            console.log(err)
         })
     }
 
